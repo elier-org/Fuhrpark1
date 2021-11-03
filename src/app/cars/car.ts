@@ -3,4 +3,5 @@ export interface Car {
     carName: string;
     licensePlate: string;
     used: boolean;
+    imageName: string;
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from 'src/app/cars/car';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,20 +10,28 @@ import { Car } from 'src/app/cars/car';
 })
 export class HomeComponent implements OnInit {
 
+  model: NgbDateStruct;
+
   public title = "Fuhrpark Management";
 
   // public cars!: Car [] = [
   public cars: Car [] = [
-    {carId: 0, carName: "Lamborgini Diablo", licensePlate: "L0001", used: false},
-    {carId: 1, carName: "Ferrary", licensePlate: "F0001", used: false},
-    {carId: 2, carName: "Rollroice", licensePlate: "R0001", used: false},
-    {carId: 3, carName: "Audi", licensePlate: "A0001", used: false},
-    {carId: 4, carName: "Papamobil", licensePlate: "P0001", used: false}
+    {carId: 0, carName: "Lamborgini Diablo", licensePlate: "L0001", used: false,  imageName: "lamborgini"},
+    {carId: 1, carName: "Ferrary", licensePlate: "F0001", used: false,  imageName: "ferrari"},
+    {carId: 2, carName: "Rolls-Royce", licensePlate: "R0001", used: false,  imageName: "rolls-royce"},
+    {carId: 3, carName: "Audi", licensePlate: "A0001", used: false,  imageName: "audi"},
+    {carId: 4, carName: "Papamobil", licensePlate: "P0001", used: false,  imageName: "papamobil"}
   ];
   
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
+  }
+
+  public bookcar($event, car){
+    
+    this.router.navigate(['/bookcar/' + car.carId]);
+    console.log(car);
   }
 
 }

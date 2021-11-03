@@ -1,1 +1,35 @@
-<p>bookcar works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Calendar</h3>
+            <div class="formGroup row">
+                <label for="von">Von</label>
+                <input type="date" id="von" class="formControl  col-6">
+            </div>
+            <div class="formGroup row mt-3">
+                <label for="bis">Bis</label>
+                <input type="date" id="bis" class="formControl col-6">
+            </div>
+            
+        </div>
+        
+        <div class="col">
+            <h3>Car Description</h3>
+            <img src="./assets/img/{{car.imageName}}.jpg" class="col-12" alt="">
+            <div>
+                {{car.carName}}
+            </div>
+            <div>
+                {{car.licensePlate}}
+            </div>
+        </div>
+
+    </div>
+    <div class="row pt-4">
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-info ml-auto">Book Car</button>    
+        </div>
+    </div>
+    
+</div>
+

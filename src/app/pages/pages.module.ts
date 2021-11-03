@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { BookcarComponent } from './bookcar/bookcar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -10,8 +11,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [HomeComponent, BookcarComponent],
   imports: [
     CommonModule,
-    NgbModule
+    NgbModule,
+    FormsModule
+    // FontAwesomeModule
   ],
-  exports: [HomeComponent, BookcarComponent]
+  exports: [HomeComponent, BookcarComponent, ]
 })
 export class PagesModule { }
