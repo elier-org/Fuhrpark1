@@ -1,0 +1,48 @@
+<div class="container">
+    <h1 class="text-center">{{title}}</h1>
+
+    <div class="row mt-2 border rounded border-dark p-0 pt-3 pb-0">
+        <div class="form-group row col text-center">
+            <label for="von" class="col-sm-2 col-form-label">Von</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="von" placeholder="Von">
+            </div>
+        </div>
+        <div class="form-group row col text-center ">
+            <label for="bis" class="col-sm-2 col-form-label">Bis</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="bis" placeholder="Bis">
+            </div>
+        </div>
+        <div class="col text-right">
+            <button type="button" class="btn btn-primary w-25">Suchen</button>
+        </div>
+    </div>
+    <div class="row card-wrapper">
+        <div *ngFor="let car of cars" class="col-md-6 col-xl-3">
+            <div class="card m-b-30 border">
+                <div class="card-body row">
+                    <div class="col-12">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""
+                            class="img-fluid w-60 center">
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Model :
+                        {{car.carName}}
+                    </li>
+                    <li class="list-group-item"><i class="fa fa-phone float-right"></i>License Plate :
+                        {{car.licensePlate}}</li>
+                </ul>
+                <div class="card-body">
+                    <div class="float-right btn-group btn-group-sm">
+                        <a href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip"
+                            data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                        <a href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip"
+                            data-original-title="Delete"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
