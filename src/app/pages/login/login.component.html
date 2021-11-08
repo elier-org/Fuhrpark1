@@ -1,6 +1,47 @@
-<div class="container">
-    <input type="text" #login>
-    <input type="password" #password> 
-    <hr>
-    <button>{{"login"}}</button>
+<div class="container h-100">
+    <div class="row pt-5 mt-5">
+        <div class="d-none d-md-block col-8 p-3 text-center align-middle">
+            <img src="./assets/img/logo_fuma.svg" class="p-2 h-100"  alt="">
+        </div>
+        <div class="col-md-4 pl-5 pr-5">
+            <div class="border bg-light ml-5 mr-5 p-2" style="border-radius: 18px;">
+                <div class="h1">
+                    {{"login"|titlecase}}
+                </div>
+                <div class="h5">
+                    {{"Fuhrpark Management"|titlecase}}
+                    
+                </div>
+                <div class="p-4" style="background-color: #99a0d1; border-radius: 18px;">
+
+                    <form action="">
+                        <div class="form-group pb-3">
+                            <b>
+                                <label for="login" class="pb-1 h5">{{"email"|titlecase}}</label>
+                            </b>
+                            <input class="form-control" type="text" #login>
+                        </div>
+                        <div class="form-group pb-2">
+                            <b>
+                                <label for="password" class="pb-1 h5">{{"password"|titlecase}}</label>
+                            </b>
+                            <input  class="form-control" type="password" #password> 
+                        </div>
+                        <!-- <hr> -->
+                        <div class="form-group pt-4">
+                            <button class="btn col-12" style="background-color: #f0f2ff;"
+                            (ngSubmit)="onSubmit()">
+                                <b>
+                                    <span class=" h5">
+                                        {{"login"|titlecase}}
+                                    </span>
+                                </b>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
