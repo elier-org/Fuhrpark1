@@ -1,7 +1,8 @@
 <div class="container">
+    <app-navbar></app-navbar>
     <h1 class="text-center p-3">{{title}}</h1>
 
-    <div class="row mt-2 border-0 rounded border-dark p-0 pt-2 pb-2 mb-3 bg-info">
+    <div class="row mt-2 p-0 pt-2 pb-2 mb-3" style="border: 2px solid black; border-radius: 13px;" >
 
         <!-- <div class="form-group row col text-center">
             <label for="von" class="col-sm-2 col-form-label">Von</label>
@@ -31,33 +32,49 @@
             <button type="button" class="btn btn-danger w-25">Suchen</button>
         </div>
     </div>
-    <div class="row card-wrapper">
+    <div class="row card-wrapper pt-4">
         <div *ngFor="let car of cars" class="col-md-6 col-xl-3">
-            
-            <div class="card m-b-30 border mb-4">
-                <div class="card-body row">
-                    <div class="col-12">
-                        <a (click)="bookcar($event, car)">
-                            <img src="./assets/img/{{car.imageName}}.jpg" alt="" 
-                            class="img-fluid w-60 center">
+            <div class="card m-b-30 mb-5" style="border-radius: 18px; border: 1px solid darkgray;">
+                <div class="card-body row p-0 m-0">
+                    <div class="col-12 p-0">
+                        <a (click)="bookcar($event, car)" class="p-0 m-0">
+                            <!-- <img src="./assets/img/{{car.imageName}}.jpg" alt="" class="img-fluid w-60 center"> -->
+                            <img src="./assets/img/ferrari.jpg" alt="" class="img-fluid center" 
+                            style="border-top-left-radius: 18px; border-top-right-radius: 18px;">
                         </a>
                     </div>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Model :
-                        {{car.carName}}
+                    <li class="list-group-item" style="border-bottom-left-radius: 18px; border-bottom-right-radius: 18px;">
+                        <!-- <i class="fa fa-envelope float-right"></i> -->
+                        <div class="h5">
+                            <!-- Model :  -->
+                            {{car.carName}}
+                        </div>
+                        <div class="h6 mb-0">
+                            License Plate : {{car.licensePlate}}
+                        </div>
+                        <div class="">
+                            <button type="button" class="" 
+                            [ngClass]= "{'border-danger text-danger' :car.used == true, 'border-info text-primary' :car.used == false}"
+                            style="float:right; border-radius: 18px; border: 1px solid darkgray; padding: 3px 16px 3px 16px;" >
+                                {{car.used == true ? "in nutzung": "verfügbar" | titlecase}}
+                            </button>
+                        </div>
                     </li>
-                    <li class="list-group-item"><i class="fa fa-phone float-right"></i>License Plate :
-                        {{car.licensePlate}}</li>
+                    <!-- <li class="list-group-item " style="border-bottom-left-radius: 18px; border-bottom-right-radius: 18px;">
+                        <i class="fa fa-phone float-right"></i>
+                        License Plate :{{car.licensePlate}}
+                    </li> -->
                 </ul>
-                <div class="card-body">
+                <!-- <div class="card-body">
                     <div class="float-right btn-group btn-group-sm">
                         <a href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip"
                             data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
                         <a href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip"
                             data-original-title="Delete"><i class="fa fa-times"></i></a>
                     </div>
-                </div>
+                </div> -->
             </div>
 
 

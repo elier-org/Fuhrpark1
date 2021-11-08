@@ -14,7 +14,7 @@
                 </div>
                 <div class="p-4" style="background-color: #99a0d1; border-radius: 18px;">
 
-                    <form action="">
+                    <form action="" (ngSubmit)="onSubmit()">
                         <div class="form-group pb-3">
                             <b>
                                 <label for="login" class="pb-1 h5">{{"email"|titlecase}}</label>
@@ -29,8 +29,7 @@
                         </div>
                         <!-- <hr> -->
                         <div class="form-group pt-4">
-                            <button class="btn col-12" style="background-color: #f0f2ff;"
-                            (ngSubmit)="onSubmit()">
+                            <button type="submit" class="btn col-12" style="background-color: #f0f2ff;">
                                 <b>
                                     <span class=" h5">
                                         {{"login"|titlecase}}
