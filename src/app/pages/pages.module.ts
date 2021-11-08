@@ -4,17 +4,19 @@ import { HomeComponent } from './home/home.component';
 import { BookcarComponent } from './bookcar/bookcar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 
 
 @NgModule({
-  declarations: [HomeComponent, BookcarComponent],
+  declarations: [HomeComponent, BookcarComponent, LoginComponent, AdminPanelComponent],
   imports: [
     CommonModule,
     NgbModule,
     FormsModule
     // FontAwesomeModule
   ],
-  exports: [HomeComponent, BookcarComponent, ]
+  exports: [HomeComponent, BookcarComponent, LoginComponent, AdminPanelComponent, ]
 })
 export class PagesModule { }
