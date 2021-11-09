@@ -11,6 +11,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class BookcarComponent implements OnInit {
 
+  from :Date;
+  to :Date;
+  
   public car;
   public cars: Car [] = [
     {carId: 0, carName: "Lamborgini Diablo", licensePlate: "L0001", used: false,  imageName: "lamborgini"},
@@ -31,8 +34,14 @@ export class BookcarComponent implements OnInit {
               ) { }
 
   ngOnInit() {
+    //fill this.car = /car/:carId
+
     let carid = this.route.snapshot.paramMap.get('carid');
     this.car = this.cars[Number(carid)];
+  }
+
+  public bookingCar(){
+    console.log(this);
   }
 
 }

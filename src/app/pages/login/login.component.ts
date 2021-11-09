@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { APP_ID, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,18 +8,22 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  user:string;
+  password:string;
 
-  // navigateToLogin() {
-  //    this.router.navigateByUrl('/login');
-  // }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
   }
 
   onSubmit(){
-    this.router.navigate(['']);
-    console.log("asdfasdf");
+    //login
+    //api.send(this.user, this.password);
+
+    //if the response is ok then 
+    //this.router.navigate(['']);
+
+    //console.log(this);
   }
 
 }

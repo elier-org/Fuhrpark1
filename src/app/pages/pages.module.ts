@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { BookcarComponent } from './bookcar/bookcar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { RouterModule } from '@angular/router';
@@ -18,7 +18,8 @@ import { ComponentsModule } from '../components/components.module';
     NgbModule,
     FormsModule,
     RouterModule,
-    ComponentsModule
+    ComponentsModule,
+    
     // FontAwesomeModule
   ],
   exports: [HomeComponent, BookcarComponent, LoginComponent, AdminPanelComponent, ]

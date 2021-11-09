@@ -13,5 +13,5 @@ export class AppComponent {
     end: new FormControl()
   });
   
-  title = 'Fuhrpark1';
+  title = 'Fuhrpark Management';
 }

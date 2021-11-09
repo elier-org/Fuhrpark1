@@ -1,1 +1,29 @@
-<p>car-card works!</p>
+<div class="card m-b-30 mb-5" style="border-radius: 18px; border: 1px solid darkgray;">
+    <div class="card-body row p-0 m-0">
+        <div class="col-12 p-0">
+            <a (click)="goToBookcar($event, car)" class="p-0 m-0">
+                <img src="./assets/img/{{car.imageName}}.jpg" alt="" class="img-fluid center"
+                style="border-top-left-radius: 18px; border-top-right-radius: 18px;">
+                <!-- <img src="./assets/img/ferrari.jpg" alt="" class="img-fluid center"  -->
+                <!-- style="border-top-left-radius: 18px; border-top-right-radius: 18px;"> -->
+            </a>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item" style="border-bottom-left-radius: 18px; border-bottom-right-radius: 18px;">
+            <div class="h5">
+                {{car.carName}}
+            </div>
+            <div class="h6 mb-0">
+                License Plate : {{car.licensePlate}}
+            </div>
+            <div class="">
+                <button type="button" class="" (click)="goToBookcar($event, car)"
+                [ngClass]= "{'border-danger text-danger' :car.used == true, 'border-info text-primary' :car.used == false}"
+                style="float:right; border-radius: 18px; border: 1px solid darkgray; padding: 3px 16px 3px 16px;" >
+                    {{car.used == true ? "in nutzung": "verfügbar" | titlecase}}
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>

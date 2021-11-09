@@ -1,33 +1,34 @@
 <div class="container">
-    <app-navbar></app-navbar>
     
+    <app-navbar></app-navbar>
     
     <div class="row mt-3">
 
         <div class="col-8">
             <div class="border p-0" style="border-radius: 18px;">
                 <div class="h3 text-center p-4 m-0" style="background-color: #99a0d1; border-top-left-radius: 18px; border-top-right-radius: 18px;">
-                    Select period
+                    {{"select period"|titlecase}}
                 </div>
                 
                 <div class="bg-light border m-0 p-3" style="border-bottom-left-radius: 18px; border-bottom-right-radius: 18px;">
-                    <!-- <h3>Calendar</h3> -->
                     <div class="form-group">
-                        <label for="von">Von</label>
-                        <input type="date" id="von" class="form-control  col-6">
+                        <label for="from">{{"from"|titlecase}}</label>
+                        <input type="date" [(ngModel)]="from" name="from" id="from" class="form-control col-6">
                     </div>
                     <div class="form-group mt-3">
-                        <label for="bis">Bis</label>
-                        <input type="date" id="bis" class="form-control col-6">
+                        <label for="to">{{"to"|titlecase}}</label>
+                        <input type="date" [(ngModel)]="to" name="to" id="to" class="form-control col-6">
                     </div>
                 </div>
 
             </div>
 
             <div class=" mt-4">
-                <button class="btn col-12" style="background-color: #f0f2ff; border-radius: 18px; border:1px solid #99a0d1;">
+                <button class="btn col-12" 
+                (click)="bookingCar()"
+                style="background-color: #f0f2ff; border-radius: 18px; border:1px solid #99a0d1;">
                     <div class="h3" >
-                        Booking Car
+                        {{"booking car"|titlecase}}
                     </div>
                 </button>    
             </div>
@@ -35,7 +36,7 @@
         
         
         <div class="col-4 p-0" style="background-color: #f2f3f9; border-radius: 18px; border:1px solid #99a0d1;">
-            <!-- <h3>Car Description</h3> -->
+            
             <div class="m-3">
                 <img src="./assets/img/{{car.imageName}}.jpg" class="m-0 p-0" 
                     style="border-radius: 18px; border:1px solid #99a0d1;"
@@ -44,19 +45,16 @@
             </div>
             
             <div class="h4 m-3">
-                Name : {{car.carName}}
+                {{"name"|titlecase}} : {{car.carName}}
             </div>
+
             <div class="h4 m-3">
-                License Plate : {{car.licensePlate}}
+                {{"license plate"|titlecase}} : {{car.licensePlate}}
             </div>
+
         </div>
 
     </div>
-    <!-- <div class="row pt-4">
-        <div class="d-flex justify-content-end">
-            <button class="btn btn-info ml-auto">Book Car</button>    
-        </div>
-    </div> -->
     
 </div>
 
