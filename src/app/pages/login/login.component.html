@@ -17,15 +17,15 @@
                     <form action="" (ngSubmit)="onSubmit()">
                         <div class="form-group pb-3">
                             <b>
-                                <label for="login" class="pb-1 h5">{{"email"|titlecase}}</label>
+                                <label for="login" class="pb-1 h5">{{"user"|titlecase}}</label>
                             </b>
-                            <input class="form-control" type="text" #login>
+                            <input class="form-control" type="text" #login placeholder="{{'Email or UserName'}}">
                         </div>
                         <div class="form-group pb-2">
                             <b>
                                 <label for="password" class="pb-1 h5">{{"password"|titlecase}}</label>
                             </b>
-                            <input  class="form-control" type="password" #password> 
+                            <input  class="form-control" type="password" #password placeholder="{{'password'|titlecase}}"> 
                         </div>
                         <!-- <hr> -->
                         <div class="form-group pt-4">

@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { RouterModule } from '@angular/router';
+import { ComponentsModule } from '../components/components.module';
 
 
 
@@ -17,6 +18,7 @@ import { RouterModule } from '@angular/router';
     NgbModule,
     FormsModule,
     RouterModule,
+    ComponentsModule
     // FontAwesomeModule
   ],
   exports: [HomeComponent, BookcarComponent, LoginComponent, AdminPanelComponent, ]

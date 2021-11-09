@@ -29,9 +29,10 @@ export class HomeComponent implements OnInit {
   }
 
   public bookcar($event, car){
-    
-    this.router.navigate(['/bookcar/' + car.carId]);
-    console.log(car);
+    if(!car.used){
+      this.router.navigate(['/bookcar/' + car.carId]);
+      // console.log(car);
+    }
   }
 
 }
