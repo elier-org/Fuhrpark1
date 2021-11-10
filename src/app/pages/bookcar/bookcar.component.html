@@ -9,23 +9,32 @@
                 <div class="h3 text-center p-4 m-0" style="background-color: #99a0d1; border-top-left-radius: 18px; border-top-right-radius: 18px;">
                     {{"select period"|titlecase}}
                 </div>
-                
-                <div class="bg-light border m-0 p-3" style="border-bottom-left-radius: 18px; border-bottom-right-radius: 18px;">
-                    <div class="form-group">
-                        <label for="from">{{"from"|titlecase}}</label>
-                        <input type="date" [(ngModel)]="from" name="from" id="from" class="form-control col-6">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="to">{{"to"|titlecase}}</label>
-                        <input type="date" [(ngModel)]="to" name="to" id="to" class="form-control col-6">
-                    </div>
+                <div class="row d-flex text-center m-0">
+                    <!-- #selected  -->
+                    <ngx-daterangepicker-material 
+                        #selected1
+                        class="p-0 mt-4 mb-2 " 
+                        autoApply="true" 
+                        (choosedDate)="choosedDate($event)"
+                        
+                        [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+                        
+                        name="daterange"
+                        
+                        >
+                    </ngx-daterangepicker-material>
                 </div>
+                
 
             </div>
 
+            <!-- [ngClass]= "{'shadow': !selected.startDate._d }" -->
             <div class=" mt-4">
+                <!-- {{selected.startDate._d}} -->
                 <button class="btn col-12" 
                 (click)="bookingCar()"
+                
+                
                 style="background-color: #f0f2ff; border-radius: 18px; border:1px solid #99a0d1;">
                     <div class="h3" >
                         {{"booking car"|titlecase}}

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewRef } from '@angular/core';
 import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Car } from 'src/app/cars/car';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Moment } from 'moment';
+import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 
 @Component({
   selector: 'app-bookcar',
@@ -11,8 +13,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class BookcarComponent implements OnInit {
 
-  from :Date;
-  to :Date;
+  // from :Date;
+  // to :Date;
+  //@ViewChild("daterange") daterange:ViewRef
+
+  // @ViewChild(DaterangepickerDirective) picker: DaterangepickerDirective;
+  // @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective;
+  @ViewChild("selected1", { static: false }) pickerDirective: ViewRef;
+
+  selected: {startDate: Moment, endDate: Moment};
+
+  selected1;
   
   public car;
   public cars: Car [] = [
@@ -42,6 +53,22 @@ export class BookcarComponent implements OnInit {
 
   public bookingCar(){
     console.log(this);
+    console.log(this.pickerDirective["startDate"]._d);
+    console.log(this.pickerDirective["endDate"]._d);
+
+
+    //console.log(this.selected.startDate, this.selected.endDate);
+    // this.selected.startDate
+    // this.selected.endDate
+  }
+
+  public choosedDate($event){
+
+    // this.selected = $event;
+
+    // console.log($event);
+    // this.selected.endDate
+
   }
 
 }

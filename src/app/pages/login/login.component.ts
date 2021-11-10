@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     //if the response is ok then 
     //this.router.navigate(['']);
 
-    //console.log(this);
+    console.log(this);
   }
 
 }

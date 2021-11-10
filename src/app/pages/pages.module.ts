@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../components/components.module';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 
 
@@ -19,6 +20,7 @@ import { ComponentsModule } from '../components/components.module';
     FormsModule,
     RouterModule,
     ComponentsModule,
+    NgxDaterangepickerMd.forRoot()
     
     // FontAwesomeModule
   ],
