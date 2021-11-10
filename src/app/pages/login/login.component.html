@@ -44,3 +44,14 @@
         </div>
     </div>
 </div>
+
+<!-- <ngb-alert class="col-12" #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage | translate }}</ngb-alert>
+<ngb-alert class="col-12" #selfClosingAlertError *ngIf="errorMessage" type="danger" (closed)="errorMessage = ''">{{ errorMessage | translate}}</ngb-alert> -->
+
+<!-- <ngb-alert #staticAlert *ngIf="!staticAlertClosed" (closed)="staticAlertClosed = true">Check out our awesome new features!</ngb-alert> -->
+<ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+<!--     
+<div class="alert alert-warning alert-dismissible" data-auto-dismiss role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Warning!</strong> Better check yourself, you're not looking too good.
+  </div> -->

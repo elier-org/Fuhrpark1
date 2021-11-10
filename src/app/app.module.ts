@@ -14,6 +14,7 @@ import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
     ComponentsModule,
     PagesModule,
     NgbModule,
+    HttpClientModule,
     
     AppRoutingModule,
     BrowserAnimationsModule,

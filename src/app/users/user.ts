@@ -4,4 +4,5 @@ export interface User {
     email: string;
     hasCar: boolean;
     carId: number;
+    token: string;
 }

@@ -1,0 +1,20 @@
+<ngb-toast
+    *ngFor="let toast of toastService.toasts"
+    [class]="toast.classname"
+    [autohide]="true"
+    [delay]="toast.delay || 5000"
+    (hidden)="toastService.remove(toast)" class="p-0">
+
+    <!-- <ng-template #text>{{ toast.textOrTpl }}</ng-template> -->
+   
+   <!-- <ng-template [ngIf]="isTemplate(toast)" [ngIfElse]="text">
+    <ng-template [ngTemplateOutlet]="toast.textOrTpl"></ng-template>
+    </ng-template> -->
+
+    <button type="button" style="position:absolute; left: -7px;" class="close" (click)="toastService.remove(toast)">
+        <i class="fa fa-times-circle text-white my-icon"></i>
+    </button>
+
+    <div class="pl-2" #text>{{ toast.textOrTpl }}</div>
+      
+</ngb-toast>
