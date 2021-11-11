@@ -5,4 +5,5 @@ export interface User {
     hasCar: boolean;
     carId: number;
     token: string;
+    status: string;
 }

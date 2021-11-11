@@ -14,12 +14,16 @@ import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AlertModule } from './components/_alert';
+import { MultiAlertsComponent } from './components/multi-alerts';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MultiAlertsComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     PagesModule,
     NgbModule,
     HttpClientModule,
-    
+    AlertModule,
+
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -36,7 +41,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatNativeDateModule
   ],
-  providers: [],
+  providers: [{ 
+    provide: HTTP_INTERCEPTORS, 
+    useClass: AuthInterceptorService, 
+    multi: true 
+  }],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

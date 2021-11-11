@@ -5,6 +5,7 @@ import { Car } from 'src/app/cars/car';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Moment } from 'moment';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-bookcar',
@@ -41,12 +42,16 @@ export class BookcarComponent implements OnInit {
 
   constructor(
               private route:ActivatedRoute, 
-              private router:Router, 
+              private router:Router,
+              private _auth:AuthService 
               ) { }
 
   ngOnInit() {
-    //fill this.car = /car/:carId
+    this.isUserLogin();
 
+
+    //fill this.car = /car/:carId
+    
     let carid = this.route.snapshot.paramMap.get('carid');
     this.car = this.cars[Number(carid)];
   }
@@ -69,6 +74,17 @@ export class BookcarComponent implements OnInit {
     // console.log($event);
     // this.selected.endDate
 
+  }
+
+  isUserLogin(){
+    let userDetails = this._auth.getUserDetails();
+    if(userDetails != null){
+      // console.log(this._auth.getUserDetails());
+      this._auth.isLogin = true;
+      //this.user = userDetails.username; 
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
 }

@@ -16,16 +16,17 @@ export class AuthInterceptorService implements HttpInterceptor {
   constructor(private _auth: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    // console.log(req, next);
+    console.log(req, next);
     // console.log("Interception In Progress"); // Interception Stage
     // console.log(req.headers.get("skip"));
-    if (req.headers.get("skip") == null){
-      let token: string = this._auth.getToken();// localStorage.getItem('token'); // This retrieves a token from local storage
-      
-      req = req.clone({ headers: req.headers.set('authorization', 'Bearer ' + JSON.parse(token)) });// This clones HttpRequest and Authorization header with Bearer token added
-      req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
-      req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
-    }
+    if(!req.url.endsWith('/authenticate'))
+      if (req.headers.get("skip") == null){
+        let token: string = this._auth.getToken();// localStorage.getItem('token'); // This retrieves a token from local storage
+        
+        req = req.clone({ headers: req.headers.set('authorization', 'Bearer ' + JSON.parse(token)) });// This clones HttpRequest and Authorization header with Bearer token added
+        req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
+        req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
+      }
  
     return next.handle(req)
         .pipe(

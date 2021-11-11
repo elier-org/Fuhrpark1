@@ -9,6 +9,8 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../components/components.module';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { AlertModule } from '../components/_alert';
+import { MultiAlertsComponent } from '../components/multi-alerts';
 
 
 
@@ -20,7 +22,8 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     FormsModule,
     RouterModule,
     ComponentsModule,
-    NgxDaterangepickerMd.forRoot()
+    NgxDaterangepickerMd.forRoot(),
+    AlertModule
     
     // FontAwesomeModule
   ],

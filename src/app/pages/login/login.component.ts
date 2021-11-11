@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
 import { NgbActiveModal, NgbAlert, NgbCheckBox, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subject, Subscription } from "rxjs";
 import { debounceTime } from "rxjs/operators";
+import { AlertService } from 'src/app/components/_alert';
 
 @Component({
   selector: 'app-login',
@@ -19,57 +20,37 @@ import { debounceTime } from "rxjs/operators";
 })
 export class LoginComponent implements OnInit {
 
-
-  private _success = new Subject<string>();
-  private _notSuccess = new Subject<string>();
-
   staticAlertClosed = false;
   successMessage = '';
 
-  @ViewChild('staticAlert', {static: false}) staticAlert: NgbAlert;
-  @ViewChild('selfClosingAlert', {static: false}) selfClosingAlert: NgbAlert;
 
   ngOnInit(): void {
     this.isUserLogin();
 
-    setTimeout(() => this.closeAlert(), 20000);
-
-    this._success.subscribe(message => this.successMessage = message);
-    this._success.pipe(debounceTime(5000)).subscribe(() => {
-      if (this.selfClosingAlert) {
-        this.closeAlert();
-        //this.selfClosingAlert.close();
-      }
-    });
-
-    this._success.next(`${new Date()} - Message successfully changed.`); 
   }
 
-  private closeAlert() {
-    this.successMessage = ''
-    this.staticAlertClosed = true
-  }
 
   user:string;
   password:string;
 
   logedUser:User;
 
-  // @ViewChild('selfClosingAlert', {static: false}) selfClosingAlert: NgbAlert;
-  // @ViewChild('selfClosingAlertError', {static: false}) selfClosingAlertError: NgbAlert;
-  
-
-
   public errorMessage = "";
 
 
   public sendingData = false;
 
+  alertOptions = {
+    autoClose: true,
+    keepAfterRouteChange: false
+  };
+
   constructor(private router: Router, 
               private userService:UserService, 
               private _api:ApiService,
               private _auth: AuthService,
-              private _router: Router) {}
+              private _router: Router,
+              public alertService: AlertService) {}
 
 
 
@@ -84,27 +65,36 @@ export class LoginComponent implements OnInit {
     //let response = this.userservice.login({username: this.user, password: this.password});
         
         this._api.postTypeRequest('/authenticate', {username: this.user, password: this.password}).subscribe((res: any) =>{
+          console.log("res.status", res.status);
           if(res.status == "success") {
-            console.log("Success", "is logged")
+            console.log("Success", "is logged");
             // this.userName = res.user.username;
-
-            this._auth.setDataInLocalStorage('userData', JSON.stringify(res.user));
+            //let userData = {userId: res.userId, userName: res.userName};
+            this._auth.setDataInLocalStorage('userData', JSON.stringify({userId: res.userId, userName: res.userName}));
             this._auth.setDataInLocalStorage('token', JSON.stringify(res.token));
+            
+            this._router.navigate(['/']);
     
-            // this.userService.isLogin = true;
-
+            this.userService.isLogin = true;
             // this.dataService.getNotifications();
 
             //this.dataService.recaptchaV3Subscription.unsubscribe();
           } else {
             //this._notSuccess.next(res);
             // this.errorMessage = res;
+
+            // this._auth.setDataInLocalStorage('userData', JSON.stringify(res.user));
+            // this._auth.setDataInLocalStorage('token', JSON.stringify(res.token));
+
             console.log("_notSuccess", res);
+            //this.alertService.error('Error :' + res, this.alertOptions)
           }
           //this.sendingData = false;
     
         }, err => {
-          console.log("error: ", err)
+          // console.log("error: ", err)
+          
+          this.alertService.error("<div class='h7'><b>Error</b> : "   + err.error.message + '</div>', this.alertOptions)
           // this.errorMessage = err['error'].errors;
           //this._notSuccess.next(err['error']);
           // this.errorMessage = err['message']
@@ -121,14 +111,17 @@ export class LoginComponent implements OnInit {
     if(userDetails != null){
       // console.log(this._auth.getUserDetails());
       this._auth.isLogin = true;
-      this.user = userDetails.username; 
+      this._auth.user = userDetails.username;
+      //this.user = userDetails.username; 
     }
   }
 
   logout(){
     this._auth.clearStorage();
-    this._router.navigate(['/']);
+    this._router.navigate(['/login']);
     this._auth.isLogin = false;
   }
+
+
 
 }
