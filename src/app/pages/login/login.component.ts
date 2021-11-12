@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
         
         this._api.postTypeRequest('/authenticate', {username: this.user, password: this.password}).subscribe((res: any) =>{
           console.log("res.status", res.status);
-          if(res.status == "success") {
+          //if(res.status == "success") {
             console.log("Success", "is logged");
             // this.userName = res.user.username;
             //let userData = {userId: res.userId, userName: res.userName};
@@ -79,16 +79,16 @@ export class LoginComponent implements OnInit {
             // this.dataService.getNotifications();
 
             //this.dataService.recaptchaV3Subscription.unsubscribe();
-          } else {
+          //} else {
             //this._notSuccess.next(res);
             // this.errorMessage = res;
 
             // this._auth.setDataInLocalStorage('userData', JSON.stringify(res.user));
             // this._auth.setDataInLocalStorage('token', JSON.stringify(res.token));
 
-            console.log("_notSuccess", res);
+            //console.log("_notSuccess", res);
             //this.alertService.error('Error :' + res, this.alertOptions)
-          }
+         // }
           //this.sendingData = false;
     
         }, err => {
