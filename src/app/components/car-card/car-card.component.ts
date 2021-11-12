@@ -9,6 +9,7 @@ import { Car } from 'src/app/cars/car';
 export class CarCardComponent implements OnInit {
   
   @Input() car:Car;
+  @Input() dateRange;
 
   constructor(private router:Router) { }
 
@@ -17,7 +18,8 @@ export class CarCardComponent implements OnInit {
 
   public goToBookcar($event, car){
     if(!car.used){
-      this.router.navigate(['/bookcar/' + car.carId]);
+      this.router.navigateByUrl('/bookcar/' + car.carId,
+      { state: { dateRange: this.dateRange } } );//{ fromDate: this.dateRange["fromDate"], toDate: this.dateRange["toDate"] }
     }
   }
 

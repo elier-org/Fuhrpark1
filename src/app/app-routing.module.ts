@@ -9,7 +9,7 @@ import { LoginComponent } from './pages/login/login.component';
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'bookcar/:carid', component: BookcarComponent },
+  { path: 'bookcar/:car_id', component: BookcarComponent },
   { path: 'admin-panel', component: AdminPanelComponent },
   { path:"**", component: HomeComponent }
 ];

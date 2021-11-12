@@ -12,18 +12,17 @@
                 </div>
                 <div class="row d-flex text-center m-0">
                     <!-- #selected  -->
+                    <!-- [isInvalidDate]="isInvalidDate" -->
+                    <!-- [(ngModel)]="selected" -->
                     <ngx-daterangepicker-material 
                         #selected1
                         class="p-0 mt-4 mb-2 " 
-                        autoApply="true" 
-                        (change)="choosedDate($event)"
-                        
+                        (choosedDate)="choosedDate($event)"
+                        [autoApply]="true" 
                         [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
-                        
-                        name="daterange"
-                        
-                        >
+                        name="daterange">
                     </ngx-daterangepicker-material>
+
                 </div>
                 
 
@@ -45,10 +44,10 @@
         </div>
         
         
-        <div class="col-4 p-0" style="background-color: #f2f3f9; border-radius: 18px; border:1px solid #99a0d1;">
+        <div class="col-4 p-0" *ngIf="car" style="background-color: #f2f3f9; border-radius: 18px; border:1px solid #99a0d1;">
             
             <div class="m-3">
-                <img src="./assets/img/cars/{{car.carId}}.jpg" class="m-0 p-0" 
+                <img  src="./assets/img/cars/{{car.carId}}.jpg" class="m-0 p-0" 
                     style="border-radius: 18px; border:1px solid #99a0d1;"
                     class="col-12" 
                     alt="">

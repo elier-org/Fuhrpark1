@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -33,6 +33,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     NgbModule,
     HttpClientModule,
     AlertModule,
+    FormsModule,
 
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -15,7 +15,7 @@ import { MultiAlertsComponent } from '../components/multi-alerts';
 
 
 @NgModule({
-  declarations: [HomeComponent, BookcarComponent, LoginComponent, AdminPanelComponent],
+  declarations: [HomeComponent, BookcarComponent, LoginComponent, AdminPanelComponent ],
   imports: [
     CommonModule,
     NgbModule,

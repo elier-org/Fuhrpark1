@@ -1,19 +1,29 @@
-import { Component, OnInit, ViewChild, ViewRef } from '@angular/core';
+import { Component, forwardRef, OnInit, ViewChild, ViewRef } from '@angular/core';
 import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Car } from 'src/app/cars/car';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { Moment } from 'moment';
-import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
+import { DaterangepickerComponent, DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { AuthService } from 'src/app/services/auth.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AlertService } from 'src/app/components/_alert';
 import { Reservation } from 'src/app/reservations/reservation';
+import { filter } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-bookcar',
   templateUrl: './bookcar.component.html',
   styleUrls: ['./bookcar.component.scss']
+  // ,
+  // providers: [
+  //   {
+  //     provide: NG_VALUE_ACCESSOR,
+  //     useExisting: forwardRef(() => BookcarComponent),
+  //     multi: true
+  //   }
+  // ]
 })
 export class BookcarComponent implements OnInit {
 
@@ -24,13 +34,36 @@ export class BookcarComponent implements OnInit {
   // @ViewChild(DaterangepickerDirective) picker: DaterangepickerDirective;
   // @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective;
   @ViewChild("selected1", { static: false }) pickerDirective: ViewRef;
+  // @ViewChild("selected1", { static: false }) pickerDirective: DaterangepickerComponent;
+  @ViewChild(DaterangepickerComponent) pickerDirective1: DaterangepickerComponent;
 
-  selected: {startDate: Moment, endDate: Moment};
+  // selected: {startDate: Moment, endDate: Moment};
+  selected: { startDate: Moment, endDate: Moment };
 
-  selected1;
+  invalidDates: moment.Moment[] = [];
+
+  // tooltips = [
+  //   { date: moment(), text: 'Today is just unselectable' },
+  //   { date: moment().add(2, 'days'), text: 'Yeeeees!!!' }
+  // ];
   
-  public car:any;
-  public carid:any;
+  isInvalidDate = (m: moment.Moment) => {
+    // Disbale Sundays and Saturdays
+    //return m.weekday() === 0 || m.weekday() === 6;
+    return false;
+  }
+
+  // isTooltipDate = (m: moment.Moment) => {
+  //   const tooltip = m.weekday() === 0 || m.weekday() === 6;
+  //   if (tooltip) {
+  //     return 'Weekends not allowed!';
+  //   } else {
+  //     return false;
+  //   }
+  // }
+  
+  public car:Car;
+  public carid:number = 0;
   public reservation: any;
 
   // public cars: Car [] = [
@@ -57,46 +90,71 @@ export class BookcarComponent implements OnInit {
               private _auth:AuthService,
               private _api:ApiService,
               private alertService:AlertService
-              ) { }
+              ) {
+                
+                
+
+                // this.router.events
+                //   .pipe(filter(e => e instanceof NavigationStart))
+                //   .subscribe((e: NavigationStart) => {
+                //     const navigation  = this.router.getCurrentNavigation();
+
+                //     let fromDate = this.pickerDirective["startDate"]._d;
+                //     let toDate = this.pickerDirective["endDate"]._d;
+
+                //     fromDate = navigation.extras.state ? navigation.extras.state.dateRange.fromDate : new Date();
+                //     toDate = navigation.extras.state ? navigation.extras.state.dateRange.toDate : new Date();
+
+                //     this.pickerDirective["startDate"]._d = new Date(fromDate);
+                //     this.pickerDirective["endDate"]._d = new Date(toDate);
+
+                //     console.log('dates after load navigation data',navigation.extras.state);
+                //     console.log("fromDate ==> ", new Date(fromDate), "toDate ==> ", new Date(toDate));
+
+                //   });
+                
+              }
 
   ngOnInit() {
     this.isUserLogin();
 
-    this.carid = this.route.snapshot.paramMap.get('carid');
-    debugger;
-
-    //fill this.car = /car/:carId
+    if(this.route.snapshot.paramMap.get('car_id'))
+      this.carid = Number(this.route.snapshot.paramMap.get('car_id'));
+    else
+      this.router.navigate(['/']);
     
     this._api.getTypeRequest('/car/' + this.carid).subscribe((res: any) =>{
       console.log("success", res);
       this.car = res;
-
-      //.toISOString().substring(0,10);
-      //console.log(this.pickerDirective["endDate"]._d);
-
     }, err => {
       console.log(JSON.stringify(err));
       this.alertService.error("<div class='h7'><b>Error</b> : "   + err.error.message + '</div>', this.alertOptions)
     });
 
-    // console.log(this.pickerDirective["startDate"]._d);
-    // console.log(this.pickerDirective["endDate"]._d);
+    // this.pickerDirective1.startDate = moment("2021-01-01");
+    // this.pickerDirective1.endDate = moment("2021-02-02");
+    // this.pickerDirective1.updateView()
+    //   this.pickerDirective.updateCalendars();
+
+    // this.pickerDirective["startDate"]._d = new Date("2021-01-01");
+    // this.pickerDirective["endDate"]._d = new Date("2021-02-02");
+    // this.pickerDirective.updateView()
 
   }
 
   public bookingCar(){
-    let fromDate = this.pickerDirective["startDate"]._d;
-    let toDate = this.pickerDirective["endDate"]._d;
+    // let fromDate = this.pickerDirective["startDate"]._d;
+    // let toDate = this.pickerDirective["endDate"]._d;
 
-    let user = this._auth.getUserDetails();
+    // let user = this._auth.getUserDetails();
 
     this.reservation = { 
-                        userId:user.userId, 
-                        carId:this.car.carId, 
-                        fromDate:fromDate,
-                        toDate: toDate
+                        userId:this._auth.getUserDetails().userId, //user.userId, 
+                        carId: this.car.carId, 
+                        fromDate: this.selected.startDate.toISOString().substring(0,10),
+                        toDate: this.selected.endDate.toISOString().substring(0,10)
                       };
-    
+
     console.log(this.reservation);
 
     // this._api.postTypeRequest('/reservations/add', this.reservation ).subscribe((res: any) =>{
@@ -113,17 +171,27 @@ export class BookcarComponent implements OnInit {
     // this.selected.endDate
   }
 
-  public choosedDate($event){
+  public choosedDate(event){
 
-    console.log(this.pickerDirective["startDate"]._d);
-    console.log(this.pickerDirective["endDate"]._d);
+    //console.log(this.selected);
+
+    //selected: { startDate: Moment, endDate: Moment };
+    this.selected.startDate = this.pickerDirective["startDate"]._d;
+    this.selected.endDate = this.pickerDirective["endDate"]._d;
+
+    // console.log(this.pickerDirective["startDate"]._d);
+    // console.log(this.pickerDirective["endDate"]._d);
 
     // this.selected = $event;
 
-    // console.log($event);
+    console.log(event);
     // this.selected.endDate
 
   }
+
+  // public choosedDate1(event) {
+  //   console.log({ event });
+  // }
 
   isUserLogin(){
     let userDetails = this._auth.getUserDetails();
