@@ -1,10 +1,11 @@
-import { Component, forwardRef, OnInit, ViewChild, ViewRef } from '@angular/core';
+import { Component, forwardRef, OnInit, ViewChild, ViewContainerRef, ViewRef } from '@angular/core';
 import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Car } from 'src/app/cars/car';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { Moment } from 'moment';
 import { DaterangepickerComponent, DaterangepickerDirective } from 'ngx-daterangepicker-material';
+// import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { AuthService } from 'src/app/services/auth.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AlertService } from 'src/app/components/_alert';
@@ -29,16 +30,31 @@ export class BookcarComponent implements OnInit {
 
   // from :Date;
   // to :Date;
-  //@ViewChild("daterange") daterange:ViewRef
+  // @ViewChild("daterange") daterange:ViewRef
+  // @ViewChild("daterange") pickerDirective:ViewRef
+
+  @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective;
+  openDatepicker() {
+    this.pickerDirective.open();
+  }
+
+  
+  // @ViewChild(DaterangepickerDirective) picker: DaterangepickerDirective;
+  // open() {
+  //     this.picker.open();
+  //   }
 
   // @ViewChild(DaterangepickerDirective) picker: DaterangepickerDirective;
   // @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective;
-  @ViewChild("selected1", { static: false }) pickerDirective: ViewRef;
-  // @ViewChild("selected1", { static: false }) pickerDirective: DaterangepickerComponent;
-  @ViewChild(DaterangepickerComponent) pickerDirective1: DaterangepickerComponent;
+  //ngx-daterangepicker-material 
+  // @ViewChild("selected1", { static: false }) pickerDirective: ViewRef;
+  //@ViewChild("selected1", { static: false }) pickerDirective;
+
+  //@ViewChild("selected1", { static: false }) pickerDirective: DaterangepickerComponent;
+  // @ViewChild(DaterangepickerComponent) pickerDirective1: DaterangepickerComponent;
 
   // selected: {startDate: Moment, endDate: Moment};
-  selected: { startDate: Moment, endDate: Moment };
+  selected: { startDate: Moment, endDate: Moment } = { startDate: moment(), endDate: moment() };
 
   invalidDates: moment.Moment[] = [];
 
@@ -140,6 +156,14 @@ export class BookcarComponent implements OnInit {
     // this.pickerDirective["endDate"]._d = new Date("2021-02-02");
     // this.pickerDirective.updateView()
 
+    console.log("this.pickerDirective == ", this.pickerDirective);
+    // console.log("this.pickerDirective == ", this.picker);
+    
+    // console.log(this.pickerDirective)    ;
+    // this.pickerDirective["startDate"]._d = moment();
+    // this.pickerDirective["endDate"]._d = moment().add(3,'d');
+
+
   }
 
   public bookingCar(){
@@ -175,16 +199,18 @@ export class BookcarComponent implements OnInit {
 
     //console.log(this.selected);
 
-    //selected: { startDate: Moment, endDate: Moment };
+    console.log(event);
+    
     this.selected.startDate = this.pickerDirective["startDate"]._d;
     this.selected.endDate = this.pickerDirective["endDate"]._d;
+
+    console.log(this.selected);
 
     // console.log(this.pickerDirective["startDate"]._d);
     // console.log(this.pickerDirective["endDate"]._d);
 
     // this.selected = $event;
 
-    console.log(event);
     // this.selected.endDate
 
   }

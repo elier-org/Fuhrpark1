@@ -14,14 +14,27 @@
                     <!-- #selected  -->
                     <!-- [isInvalidDate]="isInvalidDate" -->
                     <!-- [(ngModel)]="selected" -->
+                    
+
                     <ngx-daterangepicker-material 
+                        #dateRangePicker
+                        class="p-0 mt-4 mb-2 " 
+                        (choosedDate)="choosedDate($event)"
+                        [autoApply]="true" 
+                        [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
+                        name="daterange"
+                        >
+                    </ngx-daterangepicker-material>
+
+                    <!-- <ngx-daterangepicker-material 
                         #selected1
                         class="p-0 mt-4 mb-2 " 
                         (choosedDate)="choosedDate($event)"
                         [autoApply]="true" 
                         [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
-                        name="daterange">
-                    </ngx-daterangepicker-material>
+                        name="daterange"
+                        >
+                    </ngx-daterangepicker-material> -->
 
                 </div>
                 
