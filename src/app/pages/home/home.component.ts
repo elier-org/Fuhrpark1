@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AlertService } from 'src/app/components/_alert';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -15,21 +16,22 @@ export class HomeComponent implements OnInit {
 
   // User user;
 
-  from :Date;
-  to :Date;
+  from :any;
+  to :any;
 
   model: NgbDateStruct;
 
   public title = "Fuhrpark Management";
 
   // public cars!: Car [] = [];
-  public cars: Car [] = [
-    {carId: 0, carName: "Lamborgini Diablo", licensePlate: "L0001", used: false,  imageName: "ferrari"},
-    {carId: 1, carName: "Ferrary", licensePlate: "F0001", used: false,  imageName: "ferrari"},
-    {carId: 2, carName: "Rolls-Royce", licensePlate: "R0001", used: true,  imageName: "ferrari"},
-    {carId: 3, carName: "Audi", licensePlate: "A0001", used: false,  imageName: "ferrari"},
-    {carId: 4, carName: "Papamobil", licensePlate: "P0001", used: false,  imageName: "ferrari"}
-  ];
+  public cars: Car [];
+  //  = [
+  //   {carId: 0, carName: "Lamborgini Diablo", licensePlate: "L0001", used: false,  imageName: "ferrari"},
+  //   {carId: 1, carName: "Ferrary", licensePlate: "F0001", used: false,  imageName: "ferrari"},
+  //   {carId: 2, carName: "Rolls-Royce", licensePlate: "R0001", used: true,  imageName: "ferrari"},
+  //   {carId: 3, carName: "Audi", licensePlate: "A0001", used: false,  imageName: "ferrari"},
+  //   {carId: 4, carName: "Papamobil", licensePlate: "P0001", used: false,  imageName: "ferrari"}
+  // ];
   
   alertOptions = {
     autoClose: true,
@@ -40,27 +42,21 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.isUserLogin();
-    //this.from = new Date();
 
-    let today = new Date();
-    if(this.from == undefined){
-      this.from.setFullYear(today.getFullYear());
-      this.from.setMonth(today.getMonth());
-      this.from.setDate(today.getDate());
-    }
+    this.from = moment().toDate().toISOString().substring(0,10);
+    this.to = moment().add(15,'d').toDate().toISOString().substring(0,10); 
 
-    if(this.to == undefined){
-      this.to.setFullYear(this.from.getFullYear() + 1);
-      this.to.setMonth(this.from.getMonth());
-      this.to.setDate(this.from.getDate());
-    }
+    this.dateChange();
 
-    //console.log(this.from, this.to);
-    // let fromDate:Date;
-    // fromDate.setFullYear = 
+  }
+
+  dateChange(){
+    //update carlist using the dates from and to to filter the result
+    // console.log(this.from, this.to);
+    // console.log(this);
 
     //get carlist using todate like reference
-    this._api.postTypeRequest('/cars/filter',{"fromDate" : this.from, "toDate" : "2021-11-06" }).subscribe((res: any) =>{
+    this._api.postTypeRequest('/cars/filter',{"fromDate" : this.from, "toDate" : this.to }).subscribe((res: any) =>{
       console.log("success", res);
       this.cars = res;
     }, err => {
@@ -68,12 +64,6 @@ export class HomeComponent implements OnInit {
       console.log(JSON.stringify(err));
       this.alertService.error("<div class='h7'><b>Error</b> : "   + err.error.message + '</div>', this.alertOptions)
     });
-  }
-
-  dateChange(){
-    //update carlist using the dates from and to to filter the result
-    console.log(this.from, this.to);
-    console.log(this);
   }
 
   isUserLogin(){

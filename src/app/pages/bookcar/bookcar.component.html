@@ -15,7 +15,7 @@
                         #selected1
                         class="p-0 mt-4 mb-2 " 
                         autoApply="true" 
-                        (choosedDate)="choosedDate($event)"
+                        (change)="choosedDate($event)"
                         
                         [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}"
                         
@@ -47,7 +47,7 @@
         <div class="col-4 p-0" style="background-color: #f2f3f9; border-radius: 18px; border:1px solid #99a0d1;">
             
             <div class="m-3">
-                <img src="./assets/img/{{car.imageName}}.jpg" class="m-0 p-0" 
+                <img src="./assets/img/cars/{{car.carId}}.jpg" class="m-0 p-0" 
                     style="border-radius: 18px; border:1px solid #99a0d1;"
                     class="col-12" 
                     alt="">

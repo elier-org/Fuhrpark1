@@ -6,6 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Moment } from 'moment';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { AuthService } from 'src/app/services/auth.service';
+import { ApiService } from 'src/app/services/api.service';
+import { AlertService } from 'src/app/components/_alert';
+import { Reservation } from 'src/app/reservations/reservation';
 
 @Component({
   selector: 'app-bookcar',
@@ -26,41 +29,84 @@ export class BookcarComponent implements OnInit {
 
   selected1;
   
-  public car;
-  public cars: Car [] = [
-    {carId: 0, carName: "Lamborgini Diablo", licensePlate: "L0001", used: false,  imageName: "lamborgini"},
-    {carId: 1, carName: "Ferrary", licensePlate: "F0001", used: false,  imageName: "ferrari"},
-    {carId: 2, carName: "Rolls-Royce", licensePlate: "R0001", used: false,  imageName: "rolls-royce"},
-    {carId: 3, carName: "Audi", licensePlate: "A0001", used: false,  imageName: "audi"},
-    {carId: 4, carName: "Papamobil", licensePlate: "P0001", used: true,  imageName: "papamobil"}
-  ];
+  public car:any;
+  public carid:any;
+  public reservation: any;
+
+  // public cars: Car [] = [
+  //   {carId: 0, carName: "Lamborgini Diablo", licensePlate: "L0001", used: false,  imageName: "lamborgini"},
+  //   {carId: 1, carName: "Ferrary", licensePlate: "F0001", used: false,  imageName: "ferrari"},
+  //   {carId: 2, carName: "Rolls-Royce", licensePlate: "R0001", used: false,  imageName: "rolls-royce"},
+  //   {carId: 3, carName: "Audi", licensePlate: "A0001", used: false,  imageName: "audi"},
+  //   {carId: 4, carName: "Papamobil", licensePlate: "P0001", used: true,  imageName: "papamobil"}
+  // ];
   
   // dateRange = new FormGroup({
   //   start: new FormControl(),
   //   end: new FormControl()
   // });
+  
+  alertOptions = {
+    autoClose: true,
+    keepAfterRouteChange: false
+  };
 
   constructor(
               private route:ActivatedRoute, 
               private router:Router,
-              private _auth:AuthService 
+              private _auth:AuthService,
+              private _api:ApiService,
+              private alertService:AlertService
               ) { }
 
   ngOnInit() {
     this.isUserLogin();
 
+    this.carid = this.route.snapshot.paramMap.get('carid');
+    debugger;
 
     //fill this.car = /car/:carId
     
-    let carid = this.route.snapshot.paramMap.get('carid');
-    this.car = this.cars[Number(carid)];
+    this._api.getTypeRequest('/car/' + this.carid).subscribe((res: any) =>{
+      console.log("success", res);
+      this.car = res;
+
+      //.toISOString().substring(0,10);
+      //console.log(this.pickerDirective["endDate"]._d);
+
+    }, err => {
+      console.log(JSON.stringify(err));
+      this.alertService.error("<div class='h7'><b>Error</b> : "   + err.error.message + '</div>', this.alertOptions)
+    });
+
+    // console.log(this.pickerDirective["startDate"]._d);
+    // console.log(this.pickerDirective["endDate"]._d);
+
   }
 
   public bookingCar(){
-    console.log(this);
-    console.log(this.pickerDirective["startDate"]._d);
-    console.log(this.pickerDirective["endDate"]._d);
+    let fromDate = this.pickerDirective["startDate"]._d;
+    let toDate = this.pickerDirective["endDate"]._d;
 
+    let user = this._auth.getUserDetails();
+
+    this.reservation = { 
+                        userId:user.userId, 
+                        carId:this.car.carId, 
+                        fromDate:fromDate,
+                        toDate: toDate
+                      };
+    
+    console.log(this.reservation);
+
+    // this._api.postTypeRequest('/reservations/add', this.reservation ).subscribe((res: any) =>{
+    //   console.log("success", res);
+    //   this.car = res;
+    // }, err => {
+    //   // debugger;
+    //   console.log(JSON.stringify(err));
+    //   this.alertService.error("<div class='h7'><b>Error</b> : "   + err.error.message + '</div>', this.alertOptions)
+    // });
 
     //console.log(this.selected.startDate, this.selected.endDate);
     // this.selected.startDate
@@ -68,6 +114,9 @@ export class BookcarComponent implements OnInit {
   }
 
   public choosedDate($event){
+
+    console.log(this.pickerDirective["startDate"]._d);
+    console.log(this.pickerDirective["endDate"]._d);
 
     // this.selected = $event;
 
